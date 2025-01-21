@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Service</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        button {
+            font-size: 24px;
+            padding: 15px 30px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        p {
+            font-size: 28px;
+            margin-top: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Time Service</h1>
+    <button onclick="getTimestamp()">Get Timestamp</button>
+    <button onclick="getSqlFormat()">Get SQL Format</button>
+    <button onclick="parseDate()">Parse Date</button>
+    <p id="result"></p>
+
+    <script>
+        async function getTimestamp() {
+            const response = await fetch('/api/time/timestamp');
+            document.getElementById('result').innerText = await response.text();
+        }
+
+        async function getSqlFormat() {
+            const response = await fetch('/api/time/sql-format');
+            document.getElementById('result').innerText = await response.text();
+        }
+
+        async function parseDate() {
+            const date = prompt('Enter date (YYYY-MM-DD HH:MM:SS)');
+            if (date) {
+                const response = await fetch(`/api/time/parse-date?date=${encodeURIComponent(date)}`);
+                document.getElementById('result').innerText = await response.text();
+            }
+        }
+    </script>
+</body>
+</html>
+
